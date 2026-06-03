@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>شركة اللبوة للصرافة - نظام التقييم الرقمي</title>
+    <title>شركة اللبوة للصرافة - الشكاوى والمقترحات</title>
     
     <link rel="icon" type="image/jpeg" href="img.jpeg">
 
     <style>
         :root {
             --primary-color: #004aad;  /* الأزرق الملكي المستوحى من الشعار */
-            --primary-dark: #003377;
+            --primary-dark: #002359;   /* الكحلي العميق للفخامة */
             --accent-color: #e5b842;   /* الذهبي المتناسق مع نصوص الشعار */
             --bg-gradient: linear-gradient(135deg, #f1f5f9, #e2e8f0);
             --card-bg: #ffffff;
@@ -89,7 +89,7 @@
             height: 105px;
             background: white;
             border: 3px solid var(--accent-color);
-            border-radius: 18px; /* حواف دائرية خفيفة بدلاً من الدائرة الكاملة */
+            border-radius: 18px; 
             display: flex;
             justify-content: center;
             align-items: center;
@@ -127,16 +127,17 @@
 
         /* واجهة التقييم الرئيسية */
         .section-title {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 700;
             color: var(--primary-color);
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
         .section-subtitle {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--text-muted);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            font-weight: 500;
         }
 
         /* نظام تقييم بالنجوم تفاعلي وانسيابي ومقلوب برمجياً ليدعم الـ RTL بشكل حقيقي */
@@ -175,13 +176,13 @@
         .comment-wrapper {
             position: relative;
             text-align: right;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .comment-label {
             display: block;
-            font-size: 13px;
-            font-weight: 600;
+            font-size: 14px;
+            font-weight: 700;
             color: var(--text-main);
             margin-bottom: 8px;
             padding-right: 4px;
@@ -189,7 +190,7 @@
 
         textarea {
             width: 100%;
-            height: 120px;
+            height: 130px;
             border-radius: 16px;
             border: 1.5px solid #cbd5e1;
             padding: 14px;
@@ -345,12 +346,13 @@
             <img src="img.jpeg" alt="شعار شركة اللبوة">
         </div>
         <div class="company-name">شركة اللبوة للصرافة</div>
-        <div class="company-sub" id="branchTitle">استمارة التقييم الرقمي</div>
+        <div class="company-sub" id="branchTitle">استمارة الشكاوى والمقترحات الرقمية</div>
     </div>
 
     <div class="card" id="ratingCard">
-        <h2 class="section-title">رأيكم يصنع الفارق</h2>
-        <p class="section-subtitle">نسعد بتقييمكم لخدماتنا ومساعدتنا في تقديم أفضل تجربة ممكنة.</p>
+        <!-- تعديل العبارات بناءً على طلب الأستاذ سيف -->
+        <h2 class="section-title">ما مدى رضاك عن الخدمة؟</h2>
+        <p class="section-subtitle">صوتك مسموع.. ساعدنا في تحسين تجربتك دائماً.</p>
 
         <div class="rating-container">
             <input type="radio" name="star_rating" id="star5" class="star-input" value="5">
@@ -370,21 +372,21 @@
         </div>
 
         <div class="comment-wrapper">
-            <label for="note" class="comment-label">ملاحظاتك أو مقترحاتك (اختياري)</label>
-            <textarea id="note" placeholder="اكتب لنا عن تجربتك داخل الفرع أو أي مقترح لتطوير خدماتنا..."></textarea>
+            <label for="note" class="comment-label">اكتب شكواك أو مقترحك هنا (اختياري)</label>
+            <textarea id="note" placeholder="يرجى كتابة تفاصيل الشكوى أو المقترح لمساعدتنا في معالجتها وتطوير الخدمة..."></textarea>
         </div>
 
         <button id="submitBtn" onclick="submitRating()">
             <div class="spinner" id="spinner"></div>
-            <span id="btnText">إرسال التقييم للفرع</span>
+            <span id="btnText">إرسال إلى إدارة الفرع</span>
         </button>
     </div>
 
     <div class="card thank-you-card" id="thankYouCard">
         <div class="thank-you-icon">✓</div>
-        <h3>شكراً جزيلاً لتقييمك!</h3>
-        <p>تم استلام تقييمك وملاحظاتك بنجاح. نحن في <strong>شركة اللبوة للصرافة</strong>، نضع آراء عملائنا في مقدمة أولوياتنا لضمان تقديم تجربة مالية رائدة وممتازة تلبي تطلعاتكم دائماً.</p>
-        <div class="thank-you-footer">شركة اللبوة للصرافة </div>
+        <h3>تم استلام طلبك بنجاح!</h3>
+        <p>نشكرك على مشاركتنا رأيك. نحن في <strong>شركة اللبوة للصرافة</strong>، نتعامل مع كافة الشكاوى والمقترحات بجدية تامة لضمان تقديم تجربة مالية آمنة وممتازة تليق بثقتكم.</p>
+        <div class="thank-you-footer">إدارة شركة اللبوة للصرافة</div>
     </div>
 
 </div>
@@ -394,7 +396,7 @@
 <script>
 let selectedRating = 0;
 let isSending = false;
-let currentBranch = "الفرع الرئيسي"; // قيمة افتراضية في حال لم يكتب اسم الفرع بالرابط
+let currentBranch = "الفرع الرئيسي"; 
 
 // دالة لجلب اسم الفرع من الـ URL تلقائياً عند تحميل الصفحة
 window.addEventListener('DOMContentLoaded', () => {
@@ -406,7 +408,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     
     // تحديث النص في الهيدر باسم الفرع الحالي
-    document.getElementById("branchTitle").innerText = `استمارة التقييم الرقمي • فرع ${currentBranch}`;
+    document.getElementById("branchTitle").innerText = `الشكاوى والمقترحات • فرع ${currentBranch}`;
 });
 
 // الاستماع لحدث اختيار النجوم لتحديث القيمة المحددة
@@ -420,9 +422,9 @@ document.querySelectorAll('.star-input').forEach(input => {
 function submitRating() {
     if (isSending) return;
 
-    // التحقق من أن العميل اختار نجوماً للتقييم
+    // التحقق من أن العميل اختار تقييماً للخدمة
     if (selectedRating === 0) {
-        showToast("لطفاً، اختر عدد النجوم لتقديم التقييم ⭐");
+        showToast("لطفاً، حدد مدى رضاك عن الخدمة عبر النجوم ⭐");
         return;
     }
 
@@ -435,14 +437,14 @@ function submitRating() {
     // تفعيل حالة التحميل البصرية على الزر
     btn.disabled = true;
     spinner.style.display = "block";
-    btnText.innerText = "جاري إرسال تقييمك...";
+    btnText.innerText = "جاري الإرسال...";
 
     const note = document.getElementById("note").value;
 
-    fetch("https://script.google.com/macros/s/AKfycbxIzSOQeXvqKPBFs2KYyA4tedwdB81Xk_Gw-3TI_z_5COMkRDAlRV5_6ZX3gjGCmkA/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbzk1yLQl3bZnZRx50zMjtrPH4CqNfPXEqH8hrvDp119FUQWd4R0v8LSA4vktreMH_uR/exec", {
         method: "POST",
         body: JSON.stringify({
-            branch: currentBranch, // هنا سيتم إرسال اسم الفرع الذي تم قراءته من الرابط تلقائياً
+            branch: currentBranch, 
             rating: selectedRating,
             note: note,
             date: new Date().toISOString()
@@ -452,7 +454,7 @@ function submitRating() {
         // التحول السلس والمباشر إلى واجهة الشكر والتقدير للعميل
         document.getElementById("ratingCard").style.display = "none";
         document.getElementById("thankYouCard").style.display = "block";
-        showToast("شكراً لك، تم حفظ تقييمك بنجاح ✨");
+        showToast("شكراً لك، تم الحفظ بنجاح ✨");
     })
     .catch(() => {
         // معالجة الأخطاء وإعادة تهيئة الزر في حال وجود مشكلة بالشبكة
@@ -460,7 +462,7 @@ function submitRating() {
         isSending = false;
         btn.disabled = false;
         spinner.style.display = "none";
-        btnText.innerText = "إرسال التقييم للفرع";
+        btnText.innerText = "إرسال إلى إدارة الفرع";
     });
 }
 
