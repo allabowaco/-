@@ -125,7 +125,7 @@
     <div class="container text-center text-md-start">
         <div class="row align-items-center g-3">
             <div class="col-md-7">
-                <h1 class="fw-black mb-1"><i class="fa-solid : fs-3 text-warning me-2"></i>منظومة الرقابة الإدارية الرقمية</h1>
+                <h1 class="fw-black mb-1"><i class="fa-solid fa-shield-halved fs-3 text-warning me-2"></i>منظومة الرقابة الإدارية الرقمية</h1>
                 <p class="mb-0 text-white-50">شركة اللبوة للصرافة | لوحة متابعة جودة الخدمات الفورية والشكاوى</p>
             </div>
             <div class="col-md-5 text-md-end text-center">
@@ -214,13 +214,14 @@
                     <tr>
                         <th>الفرع المستهدف</th>
                         <th>مستوى الرضا</th>
+                        <th>رقم الهاتف</th>
                         <th>تفاصيل الشكوى / المقترح</th>
-                        <th>التاريخ والوقت</th>
+                        <th class="text-end">التاريخ والوقت</th>
                     </tr>
                 </thead>
                 <tbody id="logsTableBody">
                     <tr>
-                        <td colspan="4" class="text-center text-muted py-4">يرجى الانتظار حتى اكتمال معالجة مصفوفة البيانات...</td>
+                        <td colspan="5" class="text-center text-muted py-4">يرجى الانتظار حتى اكتمال معالجة مصفوفة البيانات...</td>
                     </tr>
                 </tbody>
             </table>
@@ -256,7 +257,7 @@
     });
 
     function fetchDataFromSheet() {
-        const webAppUrl = "https://script.google.com/macros/s/AKfycbzk1yLQl3bZnZRx50zMjtrPH4CqNfPXEqH8hrvDp119FUQWd4R0v8LSA4vktreMH_uR/exec";
+        const webAppUrl = "https://script.google.com/macros/s/AKfycbwe_WyS3BQ7jiC-cdrkI4NKFOeCY3AcWw_9v-s5HKutAFdb0w1j3thrgGRcI5DuXE7h/exec";
 
         fetch(webAppUrl)
         .then(response => response.json())
@@ -295,7 +296,7 @@
             endDate = selectedDates[1].toISOString().split('T')[0];
         }
 
-        // 1. فلترة وتصفية المصفوفة بناء على نطاق التواريخ المختار
+        // 1. فلترة وتصفية مصفوفة البيانات بناءً على نطاق التواريخ المختار
         const filteredData = rawDataFromSheet.filter(item => {
             if (!item.date) return false;
             const itemDate = item.date.split('T')[0];
@@ -314,7 +315,7 @@
         let totalRatingsCountGlobal = 0;
 
         filteredData.forEach(item => {
-            const branch = item.branch || "فرع رئيسي";
+            const branch = item.branch || "الفرع الرئيسي";
             if (!branchStats[branch]) {
                 branchStats[branch] = {
                     totalRatings: 0,
@@ -340,7 +341,7 @@
             document.getElementById('satisfactionRate').innerText = `0%`;
         }
 
-        // 3. تحديد أفضل فرع بناءً على أعلى معدل تقييم (بشرط وجود تقييمات كافية)
+        // 3. تحديد أفضل فرع بناءً على أعلى معدل تقييم
         let bestBranchName = "لا يوجد بيانات";
         let highestAverage = 0;
 
@@ -354,7 +355,7 @@
         });
         document.getElementById('bestBranch').innerText = bestBranchName;
 
-        // 4. بناء واجهة كروت تفصيل نسب النجوم المئوية (Responsive Grid)
+        // 4. بناء واجهة كروت تفصيل نسب النجوم المئوية لكل فرع
         const branchNames = Object.keys(branchStats);
         if (branchNames.length === 0) {
             branchesGrid.innerHTML = `<div class="col-12 text-center text-muted py-5 fw-bold fs-5"><i class="fa-solid fa-folder-open d-block mb-2 fs-1 text-secondary"></i>لم نجد أي مدخلات أو تقييمات مسجلة ضمن النطاق الزمني المحدد.</div>`;
@@ -398,9 +399,13 @@
             });
         }
 
-        // 5. بناء جدول الرسائل والشكاوى التفصيلي للفترة المستهدفة بالكامل
+        // 5. بناء وتحديث جدول الرسائل متضمناً رقم الهاتف
+        // نقوم بفلترة السطور التي تحتوي إما على ملاحظة مكتوبة أو رقم هاتف مسجل
         const notesLog = rawDataFromSheet.filter(item => {
-            if (!item.note || item.note.trim() === "") return false;
+            const hasNote = item.note && item.note.trim() !== "";
+            const hasPhone = item.phone && item.phone.toString().trim() !== "" && item.phone !== 0 && item.phone !== "0";
+            if (!hasNote && !hasPhone) return false;
+            
             if (startDate && endDate && item.date) {
                 const itemDate = item.date.split('T')[0];
                 return itemDate >= startDate && itemDate <= endDate;
@@ -408,12 +413,12 @@
             return true;
         });
         
-        // ترتيب الترتيب التنازلي لرؤية الرسائل الأحدث بالقول الأعلى
+        // ترتيب تنازلي لرؤية الأحدث في الأعلى دائماً
         notesLog.reverse();
         document.getElementById('logCount').innerText = `عدد الرسائل والملاحظات: ${notesLog.length}`;
 
         if (notesLog.length === 0) {
-            logsTableBody.innerHTML = `<tr><td colspan="4" class="text-center text-muted py-4 fw-bold">لا توجد رسائل تظلم أو شكاوى تابعة للمدى الزمني المختار.</td></tr>`;
+            logsTableBody.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-4 fw-bold">لا توجد رسائل تظلم أو شكاوى تابعة للمدى الزمني المختار.</td></tr>`;
         } else {
             notesLog.forEach(item => {
                 let formattedTime = "غير محدد";
@@ -422,14 +427,30 @@
                     formattedTime = d.toLocaleDateString('ar-EG') + " | " + d.toLocaleTimeString('ar-EG', {hour: '2-digit', minute:'2-digit'});
                 }
 
-                // اختيار لون كود النجمة بناءً على جودة التقييم المنخفضة أو العالية لتنبيه الإدارة
+                // معالجة رقم الهاتف وتنظيفه من القيم الصفرية الفارغة القادمة من جوجل شيت
+                let rawPhone = item.phone ? item.phone.toString().trim() : "";
+                let phoneHtml = "";
+                
+                if (rawPhone === "" || rawPhone === "0" || rawPhone === "undefined" || rawPhone === "null") {
+                    phoneHtml = `<span class="text-muted small italic">غير مدرج</span>`;
+                } else {
+                    phoneHtml = `
+                        <a href="tel:${rawPhone}" class="btn btn-sm btn-outline-primary fw-bold font-monospace px-2 py-1 rounded-pill" style="direction: ltr; display: inline-flex; align-items: center; gap: 4px;">
+                            <i class="fa-solid fa-phone fs-7"></i> ${rawPhone}
+                        </a>
+                    `;
+                }
+
+                // اختيار لون النجوم بناءً على جودة التقييم (أحمر للتقييمات السيئة للتنبيه السريع)
                 const starColorClass = item.rating <= 2 ? 'text-danger fw-bold' : 'text-warning fw-bold';
+                const textDisplay = (item.note && item.note.trim() !== "") ? item.note : `<span class="text-muted small italic">تم إرسال رقم الهاتف فقط دون كتابة رسالة</span>`;
 
                 const trHtml = `
                     <tr>
                         <td><span class="badge bg-light text-dark border p-2 fw-bold text-nowrap"><i class="fa-solid fa-building me-1 text-primary"></i>${item.branch}</span></td>
                         <td><span class="${starColorClass} text-nowrap">${item.rating} <i class="fa-solid fa-star fs-6"></i></span></td>
-                        <td class="text-wrap text-secondary fw-semibold">${item.note}</td>
+                        <td>${phoneHtml}</td>
+                        <td class="text-wrap text-secondary fw-semibold">${textDisplay}</td>
                         <td><small class="text-muted text-nowrap d-block text-end font-monospace"><i class="fa-regular fa-clock me-1"></i>${formattedTime}</small></td>
                     </tr>
                 `;
