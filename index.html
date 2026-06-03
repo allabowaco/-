@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شركة اللبوة للصرافة - نظام التقييم الرقمي</title>
+    
+    <link rel="icon" type="image/jpeg" href="img.jpeg">
+
+    <style>
+        :root {
+            --primary-color: #004aad;  /* الأزرق الملكي المستوحى من الشعار */
+            --primary-dark: #003377;
+            --accent-color: #e5b842;   /* الذهبي المتناسق مع نصوص الشعار */
+            --bg-gradient: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --star-empty: #cbd5e1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 15px;
+        }
+
+        /* الحاوية الرئيسية المصممة خصيصاً للهواتف الذكية بنمط التطبيقات الراقية */
+        .wrapper {
+            width: 100%;
+            max-width: 440px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            animation: containerEntry 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes containerEntry {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 28px 24px;
+            box-shadow: 0 12px 30px rgba(0, 74, 173, 0.06), 0 4px 12px rgba(0, 0, 0, 0.03);
+            text-align: center;
+            border: 1px solid rgba(0, 74, 173, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        /* الهيدر المطور - يعكس احترافية الهوية */
+        .header-card {
+            background: linear-gradient(135deg, #002b66, #004aad);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            padding: 32px 20px;
+        }
+        
+        .header-card::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            top: -25%; right: -25%;
+            background: radial-gradient(circle, rgba(229,184,66,0.15) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        /* تعديل الحاوية لتصبح مربعة مع حواف ناعمة متميزة */
+        .logo-container {
+            width: 105px;
+            height: 105px;
+            background: white;
+            border: 3px solid var(--accent-color);
+            border-radius: 18px; /* حواف دائرية خفيفة بدلاً من الدائرة الكاملة */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 16px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .company-name {
+            font-size: 24px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .company-sub {
+            font-size: 13px;
+            color: #ffffff;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            display: inline-block;
+            padding: 5px 18px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* واجهة التقييم الرئيسية */
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 6px;
+        }
+
+        .section-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        /* نظام تقييم بالنجوم تفاعلي وانسيابي ومقلوب برمجياً ليدعم الـ RTL بشكل حقيقي */
+        .rating-container {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0 25px;
+        }
+
+        .star-input {
+            display: none;
+        }
+
+        .star-label {
+            font-size: 46px;
+            color: var(--star-empty);
+            cursor: pointer;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.15s ease;
+        }
+
+        /* تأثيرات التحويم والتحديد للنجوم (RTL) */
+        .star-label:hover,
+        .star-label:hover ~ .star-label {
+            color: #fbbf24;
+            transform: scale(1.15);
+        }
+
+        .star-input:checked ~ .star-label {
+            color: var(--accent-color);
+            text-shadow: 0 0 12px rgba(229, 184, 66, 0.35);
+        }
+
+        /* تحسين صندوق النص ليصبح تفاعلياً ومريحاً للكتابة */
+        .comment-wrapper {
+            position: relative;
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        .comment-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            padding-right: 4px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            border-radius: 16px;
+            border: 1.5px solid #cbd5e1;
+            padding: 14px;
+            resize: none;
+            outline: none;
+            font-size: 14px;
+            transition: all 0.25s ease;
+            background: #f8fafc;
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        textarea:focus {
+            border-color: var(--primary-color);
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(0, 74, 173, 0.1);
+        }
+
+        textarea::placeholder {
+            color: #94a3b8;
+        }
+
+        /* زر الإرسال بنمط فخم وتأثيرات الضغط */
+        button {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 6px 20px rgba(0, 74, 173, 0.25);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 74, 173, 0.35);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* مؤشر التحميل */
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2.5px solid rgba(255,255,255,0.3);
+            border-top: 2.5px solid white;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* كارت رسالة الشكر بنمط احترافي وبثق منبثق سلس */
+        .thank-you-card {
+            display: none;
+            animation: scaleUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes scaleUp {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .thank-you-icon {
+            width: 70px;
+            height: 70px;
+            background: #f0fdf4;
+            border: 2px solid #bbf7d0;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            margin: 10px auto 20px;
+            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.1);
+        }
+
+        .thank-you-card h3 {
+            font-size: 22px;
+            color: #16a34a;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .thank-you-card p {
+            color: #475569;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .thank-you-footer {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #e2e8f0;
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* التوست التنبيهي العصري المتنقل */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(30px);
+            background: #1e293b;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            z-index: 1001;
+            white-space: nowrap;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <div class="card header-card">
+        <div class="logo-container">
+            <img src="img.jpeg" alt="شعار شركة اللبوة">
+        </div>
+        <div class="company-name">شركة اللبوة للصرافة</div>
+        <div class="company-sub" id="branchTitle">استمارة التقييم الرقمي</div>
+    </div>
+
+    <div class="card" id="ratingCard">
+        <h2 class="section-title">رأيكم يصنع الفارق</h2>
+        <p class="section-subtitle">نسعد بتقييمكم لخدماتنا ومساعدتنا في تقديم أفضل تجربة ممكنة.</p>
+
+        <div class="rating-container">
+            <input type="radio" name="star_rating" id="star5" class="star-input" value="5">
+            <label class="star-label" for="star5">★</label>
+            
+            <input type="radio" name="star_rating" id="star4" class="star-input" value="4">
+            <label class="star-label" for="star4">★</label>
+            
+            <input type="radio" name="star_rating" id="star3" class="star-input" value="3">
+            <label class="star-label" for="star3">★</label>
+            
+            <input type="radio" name="star_rating" id="star2" class="star-input" value="2">
+            <label class="star-label" for="star2">★</label>
+            
+            <input type="radio" name="star_rating" id="star1" class="star-input" value="1">
+            <label class="star-label" for="star1">★</label>
+        </div>
+
+        <div class="comment-wrapper">
+            <label for="note" class="comment-label">ملاحظاتك أو مقترحاتك (اختياري)</label>
+            <textarea id="note" placeholder="اكتب لنا عن تجربتك داخل الفرع أو أي مقترح لتطوير خدماتنا..."></textarea>
+        </div>
+
+        <button id="submitBtn" onclick="submitRating()">
+            <div class="spinner" id="spinner"></div>
+            <span id="btnText">إرسال التقييم للفرع</span>
+        </button>
+    </div>
+
+    <div class="card thank-you-card" id="thankYouCard">
+        <div class="thank-you-icon">✓</div>
+        <h3>شكراً جزيلاً لتقييمك!</h3>
+        <p>تم استلام تقييمك وملاحظاتك بنجاح. نحن في <strong>شركة اللبوة للصرافة</strong>، نضع آراء عملائنا في مقدمة أولوياتنا لضمان تقديم تجربة مالية رائدة وممتازة تلبي تطلعاتكم دائماً.</p>
+        <div class="thank-you-footer">شركة اللبوة للصرافة </div>
+    </div>
+
+</div>
+
+<div class="toast" id="toast">تم الإرسال بنجاح 🙌</div>
+
+<script>
+let selectedRating = 0;
+let isSending = false;
+let currentBranch = "الفرع الرئيسي"; // قيمة افتراضية في حال لم يكتب اسم الفرع بالرابط
+
+// دالة لجلب اسم الفرع من الـ URL تلقائياً عند تحميل الصفحة
+window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const branchParam = urlParams.get('branch');
+    
+    if (branchParam) {
+        currentBranch = decodeURIComponent(branchParam);
+    }
+    
+    // تحديث النص في الهيدر باسم الفرع الحالي
+    document.getElementById("branchTitle").innerText = `استمارة التقييم الرقمي • فرع ${currentBranch}`;
+});
+
+// الاستماع لحدث اختيار النجوم لتحديث القيمة المحددة
+document.querySelectorAll('.star-input').forEach(input => {
+    input.addEventListener('change', (e) => {
+        selectedRating = parseInt(e.target.value);
+    });
+});
+
+// دالة معالجة وإرسال البيانات للـ Google Script
+function submitRating() {
+    if (isSending) return;
+
+    // التحقق من أن العميل اختار نجوماً للتقييم
+    if (selectedRating === 0) {
+        showToast("لطفاً، اختر عدد النجوم لتقديم التقييم ⭐");
+        return;
+    }
+
+    isSending = true;
+
+    const btn = document.getElementById("submitBtn");
+    const spinner = document.getElementById("spinner");
+    const btnText = document.getElementById("btnText");
+
+    // تفعيل حالة التحميل البصرية على الزر
+    btn.disabled = true;
+    spinner.style.display = "block";
+    btnText.innerText = "جاري إرسال تقييمك...";
+
+    const note = document.getElementById("note").value;
+
+    fetch("https://script.google.com/macros/s/AKfycbxIzSOQeXvqKPBFs2KYyA4tedwdB81Xk_Gw-3TI_z_5COMkRDAlRV5_6ZX3gjGCmkA/exec", {
+        method: "POST",
+        body: JSON.stringify({
+            branch: currentBranch, // هنا سيتم إرسال اسم الفرع الذي تم قراءته من الرابط تلقائياً
+            rating: selectedRating,
+            note: note,
+            date: new Date().toISOString()
+        })
+    })
+    .then(() => {
+        // التحول السلس والمباشر إلى واجهة الشكر والتقدير للعميل
+        document.getElementById("ratingCard").style.display = "none";
+        document.getElementById("thankYouCard").style.display = "block";
+        showToast("شكراً لك، تم حفظ تقييمك بنجاح ✨");
+    })
+    .catch(() => {
+        // معالجة الأخطاء وإعادة تهيئة الزر في حال وجود مشكلة بالشبكة
+        showToast("عذراً، حدث خطأ أثناء الإرسال. أعد المحاولة مجدداً.");
+        isSending = false;
+        btn.disabled = false;
+        spinner.style.display = "none";
+        btnText.innerText = "إرسال التقييم للفرع";
+    });
+}
+
+// دالة معالجة التوست المؤقت
+function showToast(msg) {
+    const toast = document.getElementById("toast");
+    toast.innerText = msg;
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 3200);
+}
+</script>
+
+</body>
+</html>
