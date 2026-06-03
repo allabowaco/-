@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لوحة التحكم الإدارية - شركة اللبوة</title>
-    
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -43,12 +44,14 @@
             background: var(--card-bg);
             border-radius: 16px;
             border: none;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
             transition: transform 0.3s ease;
         }
+
         .stat-card:hover {
             transform: translateY(-5px);
         }
+
         .icon-box {
             width: 55px;
             height: 55px;
@@ -64,7 +67,7 @@
             background: var(--card-bg);
             border-radius: 16px;
             border: 1px solid #e2e8f0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
         }
 
         /* كروت الفروع */
@@ -72,15 +75,16 @@
             background: var(--card-bg);
             border-radius: 18px;
             border: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
             border-top: 5px solid var(--primary);
         }
-        
+
         .progress {
             height: 10px;
             border-radius: 10px;
             background-color: #f1f5f9;
         }
+
         .progress-bar {
             background: linear-gradient(90deg, var(--accent), #f59e0b);
             border-radius: 10px;
@@ -91,280 +95,329 @@
             background: var(--card-bg);
             border-radius: 18px;
             border: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
         }
+
         .table th {
             background-color: #f8fafc;
             color: var(--muted);
             font-weight: 700;
             border-bottom: 2px solid #edf2f7;
         }
+
         .table td {
             vertical-align: middle;
         }
 
-        /* التجاوب مع الموبايل */
+        /* ستايل أزرار الإجراءات الدائرية السريعة */
+        .action-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        /* تجاوب الموبايل وتحسين العرض للجدول */
         @media (max-width: 768px) {
             .main-header {
                 text-align: center;
                 border-radius: 0;
             }
+
             .filter-card .row {
                 flex-direction: column;
                 gap: 15px;
             }
+
             .table-responsive {
                 border: 0;
+            }
+
+            .table th:nth-child(4),
+            .table td:nth-child(4) {
+                max-width: 150px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
         }
     </style>
 </head>
+
 <body>
 
-<header class="main-header">
-    <div class="container text-center text-md-start">
-        <div class="row align-items-center g-3">
-            <div class="col-md-7">
-                <h1 class="fw-black mb-1"><i class="fa-solid fa-shield-halved fs-3 text-warning me-2"></i>منظومة الرقابة الإدارية الرقمية</h1>
-                <p class="mb-0 text-white-50">شركة اللبوة للصرافة | لوحة متابعة جودة الخدمات الفورية والشكاوى</p>
-            </div>
-            <div class="col-md-5 text-md-end text-center">
-                <span class="badge bg-white text-dark py-2 px-3 rounded-pill fw-bold">
-                    <i class="fa-solid fa-clock text-primary me-1"></i> تحديث تلقائي مباشر
-                </span>
-            </div>
-        </div>
-    </div>
-</header>
-
-<div class="container">
-
-    <div class="card filter-card p-4 mb-4">
-        <div class="row align-items-center">
-            <div class="col-lg-4 col-md-5 mb-2 mb-md-0">
-                <label class="form-label fw-bold text-secondary mb-1"><i class="fa-solid fa-calendar-days text-primary me-1"></i> تحديد الفترة الزمنية المستهدفة:</label>
-                <input type="text" id="dateRangePicker" class="form-control fw-bold border-primary text-center" placeholder="اختر تاريخ البدء والنهاية">
-            </div>
-            <div class="col-lg-8 col-md-7 text-md-end text-center pt-3 pt-md-0">
-                <button class="btn btn-primary fw-bold px-4 rounded-pill" onclick="fetchDataFromSheet()">
-                    <i class="fa-solid fa-rotate me-1"></i> تحديث فوري للبيانات
-                </button>
+    <header class="main-header">
+        <div class="container text-center text-md-start">
+            <div class="row align-items-center g-3">
+                <div class="col-md-7">
+                    <h1 class="fw-black mb-1"><i class="fa-solid fa-shield-halved fs-3 text-warning me-2"></i>منظومة
+                        الرقابة الإدارية الرقمية</h1>
+                    <p class="mb-0 text-white-50">شركة اللبوة للصرافة | لوحة متابعة جودة الخدمات الفورية والشكاوى</p>
+                </div>
+                <div class="col-md-5 text-md-end text-center">
+                    <span class="badge bg-white text-dark py-2 px-3 rounded-pill fw-bold">
+                        <i class="fa-solid fa-clock text-primary me-1"></i> تحديث تلقائي مباشر
+                    </span>
+                </div>
             </div>
         </div>
-    </div>
+    </header>
 
-    <div class="row g-4 mb-4">
-        <div class="col-md-4">
-            <div class="card stat-card p-3">
-                <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                        <p class="text-muted mb-1 fw-bold">🏆 أفضل فرع أداءً</p>
-                        <h4 class="fw-bold mb-0 text-success" id="bestBranch">-</h4>
+    <div class="container">
+
+        <div class="card filter-card p-4 mb-4">
+            <div class="row align-items-center">
+                <div class="col-lg-4 col-md-5 mb-2 mb-md-0">
+                    <label class="form-label fw-bold text-secondary mb-1"><i
+                            class="fa-solid fa-calendar-days text-primary me-1"></i> تحديد الفترة الزمنية
+                        المستهدفة:</label>
+                    <input type="text" id="dateRangePicker" class="form-control fw-bold border-primary text-center"
+                        placeholder="اختر تاريخ البدء والنهاية">
+                </div>
+                <div class="col-lg-8 col-md-7 text-md-end text-center pt-3 pt-md-0">
+                    <button class="btn btn-primary fw-bold px-4 rounded-pill" onclick="fetchDataFromSheet()">
+                        <i class="fa-solid fa-rotate me-1"></i> تحديث فوري للبيانات
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mb-4">
+            <div class="col-md-4">
+                <div class="card stat-card p-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <p class="text-muted mb-1 fw-bold">🏆 أفضل فرع أداءً</p>
+                            <h4 class="fw-bold mb-0 text-success" id="bestBranch">-</h4>
+                        </div>
+                        <div class="icon-box bg-success bg-opacity-10 text-success">
+                            <i class="fa-solid fa-crown"></i>
+                        </div>
                     </div>
-                    <div class="icon-box bg-success bg-opacity-10 text-success">
-                        <i class="fa-solid fa-crown"></i>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card stat-card p-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <p class="text-muted mb-1 fw-bold">📈 إجمالي التقييمات والطلبات</p>
+                            <h4 class="fw-bold mb-0" id="totalRatingsCount">0</h4>
+                        </div>
+                        <div class="icon-box bg-primary bg-opacity-10 text-primary">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card stat-card p-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <p class="text-muted mb-1 fw-bold">⭐ النسبة العامة للرضا</p>
+                            <h4 class="fw-bold mb-0 text-warning" id="satisfactionRate">0%</h4>
+                        </div>
+                        <div class="icon-box bg-warning bg-opacity-10 text-warning">
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card stat-card p-3">
-                <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                        <p class="text-muted mb-1 fw-bold">📈 إجمالي التقييمات والطلبات</p>
-                        <h4 class="fw-bold mb-0" id="totalRatingsCount">0</h4>
-                    </div>
-                    <div class="icon-box bg-primary bg-opacity-10 text-primary">
-                        <i class="fa-solid fa-chart-line"></i>
-                    </div>
+
+        <h5 class="fw-bold text-dark mb-3"><i class="fa-solid fa-building-columns text-primary me-1"></i> فرز وتقسيم
+            مستويات الرضا المحددة لكل فرع</h5>
+        <div class="row g-4 mb-5" id="branchesGrid">
+            <div class="col-12 text-center py-5">
+                <div class="spinner-border text-primary" role="status"></div>
+                <p class="mt-2 fw-semibold text-muted" id="loadingText">جاري سحب تحليلات الشيت الحية...</p>
+            </div>
+        </div>
+
+        <div class="card log-table-card p-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 pb-2 border-bottom">
+                <h5 class="fw-bold mb-2 mb-md-0 text-dark"><i
+                        class="fa-solid fa-envelope-open-text text-primary me-1"></i> صندوق الشكاوى والرسائل الواردة
+                    بالتاريخ</h5>
+                <span class="badge bg-secondary px-3 py-2 rounded-pill fw-bold" id="logCount">عدد الرسائل والملاحظات:
+                    0</span>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>الفرع المستهدف</th>
+                            <th>مستوى الرضا</th>
+                            <th>التفاصيل المقتضبة</th>
+                            <th class="text-center">الإجراءات</th>
+                            <th class="text-end">التاريخ والوقت</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logsTableBody">
+                        <tr>
+                            <td colspan="5" class="text-center text-muted py-4">يرجى الانتظار حتى اكتمال معالجة مصفوفة
+                                البيانات...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 20px;">
+                <div class="modal-header bg-light border-0" style="border-radius: 20px 20px 0 0;">
+                    <h5 class="modal-title fw-bold text-dark" id="detailsModalLabel"><i
+                            class="fa-solid fa-circle-info text-primary me-2"></i> تفاصيل الشكوى / الملاحظة</h5>
+                    <button type="button" class="btn-close ms-0" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4" id="modalTargetBody">
+                </div>
+                <div class="modal-footer bg-light border-0 justify-content-start" style="border-radius: 0 0 20px 20px;">
+                    <button type="button" class="btn btn-secondary fw-bold rounded-pill px-4"
+                        data-bs-dismiss="modal">إغلاق النافذة</button>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card stat-card p-3">
-                <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                        <p class="text-muted mb-1 fw-bold">⭐ النسبة العامة للرضا</p>
-                        <h4 class="fw-bold mb-0 text-warning" id="satisfactionRate">0%</h4>
-                    </div>
-                    <div class="icon-box bg-warning bg-opacity-10 text-warning">
-                        <i class="fa-solid fa-star-half-stroke"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
-    <h5 class="fw-bold text-dark mb-3"><i class="fa-solid fa-building-columns text-primary me-1"></i> فرز وتقسيم مستويات الرضا المحددة لكل فرع</h5>
-    <div class="row g-4 mb-5" id="branchesGrid">
-        <div class="col-12 text-center py-5">
-            <div class="spinner-border text-primary" role="status"></div>
-            <p class="mt-2 fw-semibold text-muted" id="loadingText">جاري سحب تحليلات الشيت الحية...</p>
-        </div>
-    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ar.js"></script>
 
-    <div class="card log-table-card p-4">
-        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 pb-2 border-bottom">
-            <h5 class="fw-bold mb-2 mb-md-0 text-dark"><i class="fa-solid fa-envelope-open-text text-primary me-1"></i> صندوق الشكاوى والرسائل الواردة بالتاريخ</h5>
-            <span class="badge bg-secondary px-3 py-2 rounded-pill fw-bold" id="logCount">عدد الرسائل والملاحظات: 0</span>
-        </div>
-        <div class="table-responsive">
-            <table class="table table-hover align-middle">
-                <thead>
-                    <tr>
-                        <th>الفرع المستهدف</th>
-                        <th>مستوى الرضا</th>
-                        <th>رقم الهاتف</th>
-                        <th>تفاصيل الشكوى / المقترح</th>
-                        <th class="text-end">التاريخ والوقت</th>
-                    </tr>
-                </thead>
-                <tbody id="logsTableBody">
-                    <tr>
-                        <td colspan="5" class="text-center text-muted py-4">يرجى الانتظار حتى اكتمال معالجة مصفوفة البيانات...</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <script>
+        let rawDataFromSheet = [];
+        let datePickerInstance;
+        let detailsModalBootstrap;
 
-</div>
+        window.addEventListener('DOMContentLoaded', () => {
+            // تهيئة المودل المنبثق
+            detailsModalBootstrap = new bootstrap.Modal(document.getElementById('detailsModal'));
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ar.js"></script>
+            // تهيئة منتقي التاريخ بنطاق (من - إلى)
+            const today = new Date();
+            const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
 
-<script>
-    let rawDataFromSheet = [];
-    let datePickerInstance;
+            datePickerInstance = flatpickr("#dateRangePicker", {
+                mode: "range",
+                locale: "ar",
+                dateFormat: "Y-m-d",
+                defaultDate: [firstDayOfMonth, today],
+                onChange: function () {
+                    processData();
+                }
+            });
 
-    window.addEventListener('DOMContentLoaded', () => {
-        // تهيئة منتقي التاريخ بنطاق (من - إلى)
-        const today = new Date();
-        const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-        
-        datePickerInstance = flatpickr("#dateRangePicker", {
-            mode: "range",
-            locale: "ar",
-            dateFormat: "Y-m-d",
-            defaultDate: [firstDayOfMonth, today],
-            onChange: function() {
-                processData();
-            }
+            fetchDataFromSheet();
         });
 
-        fetchDataFromSheet();
-    });
+        function fetchDataFromSheet() {
+            const webAppUrl = "https://script.google.com/macros/s/AKfycbwe_WyS3BQ7jiC-cdrkI4NKFOeCY3AcWw_9v-s5HKutAFdb0w1j3thrgGRcI5DuXE7h/exec";
 
-    function fetchDataFromSheet() {
-        const webAppUrl = "https://script.google.com/macros/s/AKfycbwe_WyS3BQ7jiC-cdrkI4NKFOeCY3AcWw_9v-s5HKutAFdb0w1j3thrgGRcI5DuXE7h/exec";
-
-        fetch(webAppUrl)
-        .then(response => response.json())
-        .then(data => {
-            rawDataFromSheet = data;
-            processData();
-        })
-        .catch(error => {
-            console.error("Error fetching data:", error);
-            document.getElementById('loadingText').innerText = "حدث خطأ بالاتصال بالـ Web App. تأكد من إعدادات النشر وعنوان URL الخاص بك.";
-        });
-    }
-
-    function processData() {
-        const branchesGrid = document.getElementById('branchesGrid');
-        const logsTableBody = document.getElementById('logsTableBody');
-        
-        branchesGrid.innerHTML = "";
-        logsTableBody.innerHTML = "";
-
-        if (rawDataFromSheet.length === 0) {
-            branchesGrid.innerHTML = `<div class="col-12 text-center text-muted py-4">لا توجد بيانات متاحة بالشيت.</div>`;
-            return;
+            fetch(webAppUrl)
+                .then(response => response.json())
+                .then(data => {
+                    rawDataFromSheet = data;
+                    processData();
+                })
+                .catch(error => {
+                    console.error("Error fetching data:", error);
+                    document.getElementById('loadingText').innerText = "حدث خطأ بالاتصال بالـ Web App. تأكد من إعدادات النشر وعنوان URL الخاص بك.";
+                });
         }
 
-        // الحصول على النطاق المختار من الـ Flatpickr
-        const selectedDates = datePickerInstance.selectedDates;
-        let startDate = null;
-        let endDate = null;
+        function processData() {
+            const branchesGrid = document.getElementById('branchesGrid');
+            const logsTableBody = document.getElementById('logsTableBody');
 
-        if (selectedDates.length === 1) {
-            startDate = selectedDates[0].toISOString().split('T')[0];
-            endDate = startDate;
-        } else if (selectedDates.length === 2) {
-            startDate = selectedDates[0].toISOString().split('T')[0];
-            endDate = selectedDates[1].toISOString().split('T')[0];
-        }
+            branchesGrid.innerHTML = "";
+            logsTableBody.innerHTML = "";
 
-        // 1. فلترة وتصفية مصفوفة البيانات بناءً على نطاق التواريخ المختار
-        const filteredData = rawDataFromSheet.filter(item => {
-            if (!item.date) return false;
-            const itemDate = item.date.split('T')[0];
-            if (startDate && endDate) {
-                return itemDate >= startDate && itemDate <= endDate;
+            if (rawDataFromSheet.length === 0) {
+                branchesGrid.innerHTML = `<div class="col-12 text-center text-muted py-4">لا توجد بيانات متاحة بالشيت.</div>`;
+                return;
             }
-            return true;
-        });
 
-        // تحديث كروت الأرقام الإجمالية السريعة
-        document.getElementById('totalRatingsCount').innerText = filteredData.length;
+            const selectedDates = datePickerInstance.selectedDates;
+            let startDate = null;
+            let endDate = null;
 
-        // 2. تجميع الإحصائيات وبناء هيكل البيانات لكل فرع
-        const branchStats = {};
-        let totalStarsSum = 0;
-        let totalRatingsCountGlobal = 0;
-
-        filteredData.forEach(item => {
-            const branch = item.branch || "الفرع الرئيسي";
-            if (!branchStats[branch]) {
-                branchStats[branch] = {
-                    totalRatings: 0,
-                    starsSum: 0,
-                    stars: { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 }
-                };
+            if (selectedDates.length === 1) {
+                startDate = selectedDates[0].toISOString().split('T')[0];
+                endDate = startDate;
+            } else if (selectedDates.length === 2) {
+                startDate = selectedDates[0].toISOString().split('T')[0];
+                endDate = selectedDates[1].toISOString().split('T')[0];
             }
-            if (item.rating >= 1 && item.rating <= 5) {
-                branchStats[branch].stars[item.rating]++;
-                branchStats[branch].totalRatings++;
-                branchStats[branch].starsSum += item.rating;
-                
-                totalStarsSum += item.rating;
-                totalRatingsCountGlobal++;
+
+            // فلترة البيانات بناءً على التاريخ
+            const filteredData = rawDataFromSheet.filter(item => {
+                if (!item.date) return false;
+                const itemDate = item.date.split('T')[0];
+                if (startDate && endDate) {
+                    return itemDate >= startDate && itemDate <= endDate;
+                }
+                return true;
+            });
+
+            document.getElementById('totalRatingsCount').innerText = filteredData.length;
+
+            const branchStats = {};
+            let totalStarsSum = 0;
+            let totalRatingsCountGlobal = 0;
+
+            filteredData.forEach(item => {
+                const branch = item.branch || "الفرع الرئيسي";
+                if (!branchStats[branch]) {
+                    branchStats[branch] = {
+                        totalRatings: 0,
+                        starsSum: 0,
+                        stars: { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 }
+                    };
+                }
+                if (item.rating >= 1 && item.rating <= 5) {
+                    branchStats[branch].stars[item.rating]++;
+                    branchStats[branch].totalRatings++;
+                    branchStats[branch].starsSum += item.rating;
+
+                    totalStarsSum += item.rating;
+                    totalRatingsCountGlobal++;
+                }
+            });
+
+            if (totalRatingsCountGlobal > 0) {
+                const avgGlobal = (totalStarsSum / (totalRatingsCountGlobal * 5)) * 100;
+                document.getElementById('satisfactionRate').innerText = `${Math.round(avgGlobal)}%`;
+            } else {
+                document.getElementById('satisfactionRate').innerText = `0%`;
             }
-        });
 
-        // احتساب معدل الرضا الإجمالي لجميع الفروع خلال الفترة المحددة
-        if (totalRatingsCountGlobal > 0) {
-            const avgGlobal = (totalStarsSum / (totalRatingsCountGlobal * 5)) * 100;
-            document.getElementById('satisfactionRate').innerText = `${Math.round(avgGlobal)}%`;
-        } else {
-            document.getElementById('satisfactionRate').innerText = `0%`;
-        }
+            let bestBranchName = "لا يوجد بيانات";
+            let highestAverage = 0;
 
-        // 3. تحديد أفضل فرع بناءً على أعلى معدل تقييم
-        let bestBranchName = "لا يوجد بيانات";
-        let highestAverage = 0;
-
-        Object.keys(branchStats).forEach(branch => {
-            const stats = branchStats[branch];
-            const avg = stats.starsSum / stats.totalRatings;
-            if (avg > highestAverage) {
-                highestAverage = avg;
-                bestBranchName = branch;
-            }
-        });
-        document.getElementById('bestBranch').innerText = bestBranchName;
-
-        // 4. بناء واجهة كروت تفصيل نسب النجوم المئوية لكل فرع
-        const branchNames = Object.keys(branchStats);
-        if (branchNames.length === 0) {
-            branchesGrid.innerHTML = `<div class="col-12 text-center text-muted py-5 fw-bold fs-5"><i class="fa-solid fa-folder-open d-block mb-2 fs-1 text-secondary"></i>لم نجد أي مدخلات أو تقييمات مسجلة ضمن النطاق الزمني المحدد.</div>`;
-        } else {
-            branchNames.forEach(branch => {
+            Object.keys(branchStats).forEach(branch => {
                 const stats = branchStats[branch];
-                const branchAvg = (stats.starsSum / stats.totalRatings).toFixed(1);
-                
-                let cardHtml = `
+                const avg = stats.starsSum / stats.totalRatings;
+                if (avg > highestAverage) {
+                    highestAverage = avg;
+                    bestBranchName = branch;
+                }
+            });
+            document.getElementById('bestBranch').innerText = bestBranchName;
+
+            const branchNames = Object.keys(branchStats);
+            if (branchNames.length === 0) {
+                branchesGrid.innerHTML = `<div class="col-12 text-center text-muted py-5 fw-bold fs-5"><i class="fa-solid fa-folder-open d-block mb-2 fs-1 text-secondary"></i>لم نجد أي مدخلات أو تقييمات مسجلة ضمن النطاق الزمني المحدد.</div>`;
+            } else {
+                branchNames.forEach(branch => {
+                    const stats = branchStats[branch];
+                    const branchAvg = (stats.starsSum / stats.totalRatings).toFixed(1);
+
+                    let cardHtml = `
                     <div class="col-xl-4 col-md-6">
                         <div class="card branch-card p-4 h-100">
                             <div class="d-flex justify-content-between align-items-start mb-3">
@@ -377,11 +430,11 @@
                             <hr class="text-black-50 my-2">
                 `;
 
-                for (let i = 5; i >= 1; i--) {
-                    const count = stats.stars[i];
-                    const percentage = stats.totalRatings > 0 ? (count / stats.totalRatings) * 100 : 0;
-                    
-                    cardHtml += `
+                    for (let i = 5; i >= 1; i--) {
+                        const count = stats.stars[i];
+                        const percentage = stats.totalRatings > 0 ? (count / stats.totalRatings) * 100 : 0;
+
+                        cardHtml += `
                         <div class="row align-items-center my-1 g-2">
                             <div class="col-3 text-warning fw-bold small text-nowrap">${i} <i class="fa-solid fa-star small"></i></div>
                             <div class="col-6">
@@ -392,73 +445,153 @@
                             <div class="col-3 text-end fw-bold text-dark small">${count} أشخاص</div>
                         </div>
                     `;
-                }
+                    }
 
-                cardHtml += `</div></div>`;
-                branchesGrid.insertAdjacentHTML('beforeend', cardHtml);
-            });
-        }
-
-        // 5. بناء وتحديث جدول الرسائل متضمناً رقم الهاتف
-        // نقوم بفلترة السطور التي تحتوي إما على ملاحظة مكتوبة أو رقم هاتف مسجل
-        const notesLog = rawDataFromSheet.filter(item => {
-            const hasNote = item.note && item.note.trim() !== "";
-            const hasPhone = item.phone && item.phone.toString().trim() !== "" && item.phone !== 0 && item.phone !== "0";
-            if (!hasNote && !hasPhone) return false;
-            
-            if (startDate && endDate && item.date) {
-                const itemDate = item.date.split('T')[0];
-                return itemDate >= startDate && itemDate <= endDate;
+                    cardHtml += `</div></div>`;
+                    branchesGrid.insertAdjacentHTML('beforeend', cardHtml);
+                });
             }
-            return true;
-        });
-        
-        // ترتيب تنازلي لرؤية الأحدث في الأعلى دائماً
-        notesLog.reverse();
-        document.getElementById('logCount').innerText = `عدد الرسائل والملاحظات: ${notesLog.length}`;
 
-        if (notesLog.length === 0) {
-            logsTableBody.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-4 fw-bold">لا توجد رسائل تظلم أو شكاوى تابعة للمدى الزمني المختار.</td></tr>`;
-        } else {
-            notesLog.forEach(item => {
-                let formattedTime = "غير محدد";
-                if (item.date) {
-                    const d = new Date(item.date);
-                    formattedTime = d.toLocaleDateString('ar-EG') + " | " + d.toLocaleTimeString('ar-EG', {hour: '2-digit', minute:'2-digit'});
-                }
+            // فلترة وجدول الملاحظات والشكاوى
+            // قمنا بالاحتفاظ بالمصفوفة الأصلية غير المعكوسة للرجوع إليها عبر الـ index
+            const notesLog = filteredData.filter(item => {
+                const hasNote = item.note && item.note.trim() !== "";
+                const hasPhone = item.phone && item.phone.toString().trim() !== "" && item.phone !== 0 && item.phone !== "0";
+                return hasNote || hasPhone;
+            });
 
-                // معالجة رقم الهاتف وتنظيفه من القيم الصفرية الفارغة القادمة من جوجل شيت
-                let rawPhone = item.phone ? item.phone.toString().trim() : "";
-                let phoneHtml = "";
-                
-                if (rawPhone === "" || rawPhone === "0" || rawPhone === "undefined" || rawPhone === "null") {
-                    phoneHtml = `<span class="text-muted small italic">غير مدرج</span>`;
-                } else {
-                    phoneHtml = `
-                        <a href="tel:${rawPhone}" class="btn btn-sm btn-outline-primary fw-bold font-monospace px-2 py-1 rounded-pill" style="direction: ltr; display: inline-flex; align-items: center; gap: 4px;">
-                            <i class="fa-solid fa-phone fs-7"></i> ${rawPhone}
+            // سنقوم بإنشاء نسخة معكوسة للرسم فقط حتى لا نلعب بالـ indexes الأصلية لـ notesLog
+            const displayNotesLog = [...notesLog].reverse();
+            document.getElementById('logCount').innerText = `عدد الرسائل والملاحظات: ${notesLog.length}`;
+
+            if (displayNotesLog.length === 0) {
+                logsTableBody.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-4 fw-bold">لا توجد رسائل تظلم أو شكاوى تابعة للمدى الزمني المختار.</td></tr>`;
+            } else {
+                displayNotesLog.forEach((item) => {
+                    // العثور على الاندكس الأصلي للعنصر في مصفوفة notesLog الثابتة
+                    const originalIndex = notesLog.indexOf(item);
+
+                    let formattedTime = "غير محدد";
+                    if (item.date) {
+                        const d = new Date(item.date);
+                        formattedTime = d.toLocaleDateString('ar-EG') + " | " + d.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+                    }
+
+                    let rawPhone = item.phone ? item.phone.toString().trim() : "";
+                    if (rawPhone === "0" || rawPhone === "undefined" || rawPhone === "null") rawPhone = "";
+
+                    const starColorClass = item.rating <= 2 ? 'text-danger fw-bold' : 'text-warning fw-bold';
+
+                    let plainText = (item.note && item.note.trim() !== "") ? item.note : "تم إرسال رقم الهاتف فقط دون كتابة رسالة";
+                    let truncatedText = plainText.length > 45 ? plainText.substring(0, 42) + "..." : plainText;
+
+                    let phoneBtnHtml = "";
+                    if (rawPhone !== "") {
+                        phoneBtnHtml = `
+                        <a href="tel:${rawPhone}" class="btn btn-sm btn-success action-btn shadow-sm me-1" title="اتصال مباشر بالعميل">
+                            <i class="fa-solid fa-phone fs-6"></i>
                         </a>
                     `;
-                }
+                    }
 
-                // اختيار لون النجوم بناءً على جودة التقييم (أحمر للتقييمات السيئة للتنبيه السريع)
-                const starColorClass = item.rating <= 2 ? 'text-danger fw-bold' : 'text-warning fw-bold';
-                const textDisplay = (item.note && item.note.trim() !== "") ? item.note : `<span class="text-muted small italic">تم إرسال رقم الهاتف فقط دون كتابة رسالة</span>`;
-
-                const trHtml = `
+                    // التعديل السحري هنا: نمرر فقط الـ originalIndex الفريد لكل سطر ومصفوفة ثابتة
+                    const trHtml = `
                     <tr>
                         <td><span class="badge bg-light text-dark border p-2 fw-bold text-nowrap"><i class="fa-solid fa-building me-1 text-primary"></i>${item.branch}</span></td>
                         <td><span class="${starColorClass} text-nowrap">${item.rating} <i class="fa-solid fa-star fs-6"></i></span></td>
-                        <td>${phoneHtml}</td>
-                        <td class="text-wrap text-secondary fw-semibold">${textDisplay}</td>
+                        <td class="text-secondary fw-semibold small text-wrap">${truncatedText}</td>
+                        <td class="text-center text-nowrap">
+                            ${phoneBtnHtml}
+                            <button class="btn btn-sm btn-primary action-btn shadow-sm" title="عرض التفاصيل الكاملة" 
+                                onclick="openDetailsModal(${originalIndex})">
+                                <i class="fa-solid fa-eye fs-6"></i>
+                            </button>
+                        </td>
                         <td><small class="text-muted text-nowrap d-block text-end font-monospace"><i class="fa-regular fa-clock me-1"></i>${formattedTime}</small></td>
                     </tr>
                 `;
-                logsTableBody.insertAdjacentHTML('beforeend', trHtml);
-            });
+                    logsTableBody.insertAdjacentHTML('beforeend', trHtml);
+                });
+            }
+
+            // حفظ المصفوفة مؤقتاً في الـ window ليسهل الوصول إليها من دالة المودل
+            window.currentNotesLog = notesLog;
         }
-    }
-</script>
+
+        // الدالة المحدثة التي تستقبل الـ index وتصل للبيانات الحقيقية بأمان وتصلح عرض الهاتف
+        function openDetailsModal(index) {
+            if (!window.currentNotesLog || !window.currentNotesLog[index]) return;
+
+            const item = window.currentNotesLog[index];
+            const targetBody = document.getElementById('modalTargetBody');
+
+            let formattedTime = "غير محدد";
+            if (item.date) {
+                const d = new Date(item.date);
+                formattedTime = d.toLocaleDateString('ar-EG') + " | " + d.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+            }
+
+            let rawPhone = item.phone ? item.phone.toString().trim() : "";
+            if (rawPhone === "0" || rawPhone === "undefined" || rawPhone === "null") rawPhone = "";
+
+            let plainText = (item.note && item.note.trim() !== "") ? item.note : "تم إرسال رقم الهاتف فقط دون كتابة رسالة";
+
+            let starsHtml = "";
+            for (let i = 1; i <= 5; i++) {
+                if (i <= item.rating) {
+                    starsHtml += `<i class="fa-solid fa-star text-warning fs-5 me-1"></i>`;
+                } else {
+                    starsHtml += `<i class="fa-regular fa-star text-muted fs-5 me-1"></i>`;
+                }
+            }
+
+            let phoneBlock = `<p class="text-muted mb-0 italic">غير مدرج بالطلب</p>`;
+            if (rawPhone !== "") {
+                phoneBlock = `
+        <div class="p-2 bg-light rounded-3 border">
+            <div class="row align-items-center g-2">
+                <div class="col-sm-7 text-center text-sm-start">
+                    <span class="font-monospace fw-bold fs-5 text-dark select-all" style="direction: ltr; display: inline-block;">${rawPhone}</span>
+                </div>
+                <div class="col-sm-5 text-center text-sm-end">
+                    <a href="tel:${rawPhone}" class="btn btn-sm btn-success rounded-pill px-3 fw-bold w-100"><i class="fa-solid fa-phone me-1"></i> اتصال الآن</a>
+                </div>
+            </div>
+        </div>
+    `;
+            }
+
+            targetBody.innerHTML = `
+    <div class="mb-3">
+        <label class="text-muted small fw-bold d-block mb-1">الفرع المستهدف:</label>
+        <span class="badge bg-primary fs-6 px-3 py-2 rounded-3"><i class="fa-solid fa-building me-1"></i> ${item.branch || "الفرع الرئيسي"}</span>
+    </div>
+    <div class="mb-3">
+        <label class="text-muted small fw-bold d-block mb-1">تاريخ المعاملة والوقت:</label>
+        <div class="text-secondary fw-bold small font-monospace"><i class="fa-regular fa-clock me-1"></i> ${formattedTime}</div>
+    </div>
+    <div class="mb-3">
+        <label class="text-muted small fw-bold d-block mb-1">مستوى رضا العميل المتأثر:</label>
+        <div class="d-flex align-items-center">${starsHtml} <span class="ms-2 fw-bold text-dark">(${item.rating} من 5)</span></div>
+    </div>
+    <div class="mb-3">
+        <label class="text-muted small fw-bold d-block mb-1">رقم الهاتف للاتصال والمتابعة:</label>
+        ${phoneBlock}
+    </div>
+    <div class="mb-0">
+        <label class="text-muted small fw-bold d-block mb-1">تفاصيل الشكوى / المقترح المكتوب بالكامل:</label>
+        <div class="p-3 bg-light text-dark rounded-3 border fw-semibold" style="white-space: pre-wrap; line-height: 1.6; overflow-wrap: anywhere; word-break: break-word;"></div>
+    </div>
+`;
+
+            // لمنع الـ XSS وحماية كسر الـ HTML نضع النص هنا بشكل آمن
+            targetBody.querySelector('.mb-0 div').innerText = plainText;
+
+            detailsModalBootstrap.show();
+        }
+
+    </script>
 
 </body>
+
 </html>
